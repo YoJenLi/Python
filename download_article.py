@@ -18,10 +18,16 @@ def remove(value, deletechars):
 def store_art(CrawlerTime, url, rate="", title="" ):
     res=rs.get(url,verify=False)
     soup=bs(res.text,'html.parser')
+<<<<<<< HEAD
     
     # board = url.strip('https://www.ptt.cc/bbs/').split('/index.html')[0]
     # relative_path = os.path.join(CrawlerTime,board)建立路徑 join
     path = os.path.abspath(CrawlerTime)#絕對路徑
+=======
+    board = url.strip('https://www.ptt.cc/bbs/').split('/index.html')[0]
+    relative_path = os.path.join(CrawlerTime,board)
+    path = os.path.abspath(relative_path)
+>>>>>>> e97616b1294ec25dad1ede2617745c62eb5fde85
     try:
     	if not os.path.exists(path):
     		os.makedirs(path) 
@@ -37,8 +43,12 @@ def store_art(CrawlerTime, url, rate="", title="" ):
 
 def main():
     print "Crawler Parsing...."
+<<<<<<< HEAD
     name1 = crawlName(url)
     CrawlerTime= name1+'-'+strftime("%Y-%m-%d[%H-%M-%S]")
+=======
+    CrawlerTime= "ArticleDownload_"+strftime("%Y-%m-%d[%H-%M-%S]")
+>>>>>>> e97616b1294ec25dad1ede2617745c62eb5fde85
     ts = time()
     article_urls = []
     total=0
