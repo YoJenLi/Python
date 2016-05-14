@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import requests
 import sys
-import download_article
+import download_article2
 from bs4 import BeautifulSoup as bs
 from time import time
 from time import strftime
@@ -50,24 +50,19 @@ def crawPage(url, article_list, push_rate):
 def crawlName(url):
 	front = url.find('/bbs/')
 	end = url.find('/index.html')
-<<<<<<< HEAD
+
 	crawlName = url[front+5:end]
-=======
-	crawlName = url[fornt+5:end]
->>>>>>> e97616b1294ec25dad1ede2617745c62eb5fde85
+
 	return crawlName
 
 if __name__ == '__main__':
     #從cmd輸入 開始的頁數,想爬取的總頁數,推文數,欲爬取版的網址
     start_page, page_term, push_rate, url = int(sys.argv[1]),int(sys.argv[2]),int(sys.argv[3]),sys.argv[4]
     ts = time()
-<<<<<<< HEAD
+
     name1 = crawlName(url)
     CrawlerTime = name1 + '-' +strftime("%Y-%m-%d[%H-%M-%S]")
-=======
-    name = crawlName(url)
-    CrawlerTime = name + strftime("%Y-%m-%d[%H-%M-%S]")
->>>>>>> e97616b1294ec25dad1ede2617745c62eb5fde85
+
     if start_page < 0:
         res = rs.get(url,verify=False)
         soup = bs(res.text,'html.parser')
@@ -80,25 +75,17 @@ if __name__ == '__main__':
 
     article_list = []
     #range(-1,-1-2204,-1): 2204 2203 2202 2201.......
-<<<<<<< HEAD
-    for page in range(start_page, start_page - page_term, -1): 
-    	#https://www.ptt.cc/bbs/Tech_Job/index2204.html 
-        page_url = url.strip().split('.html')[0] + str(page) + '.html' 
-=======
+
     for page in range(start_page, start_page - page_term, -1):
     	#https://www.ptt.cc/bbs/Tech_Job/index2204.html 
         page_url = url.strip().split('.html')[0] + str(page) + '.html'
->>>>>>> e97616b1294ec25dad1ede2617745c62eb5fde85
+
         crawPage(page_url,article_list,push_rate)
 
     total = len(article_list)
     count = 0
     for hot_rate, url ,title in article_list:
-<<<<<<< HEAD
-        download_article.store_art(CrawlerTime, url ,str(hot_rate),title)
-=======
-        download1.store_art(CrawlerTime, url ,str(hot_rate),title)
->>>>>>> e97616b1294ec25dad1ede2617745c62eb5fde85
+        download_article2.store_art(CrawlerTime, url ,str(hot_rate),title)
         count += 1
         print "Download: " + str(100 * count/ total) + " %."
 

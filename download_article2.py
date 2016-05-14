@@ -20,7 +20,7 @@ def store_art(CrawlerTime, url, rate="", title="" ):
     soup=bs(res.text,'html.parser')
 
     
-    # board = url.strip('https://www.ptt.cc/bbs/').split('/index.html')[0]
+    board = url.strip('https://www.ptt.cc/bbs/').split('/index.html')[0]
     # relative_path = os.path.join(CrawlerTime,board)建立路徑 join
     path = os.path.abspath(CrawlerTime)#絕對路徑
 
@@ -29,12 +29,17 @@ def store_art(CrawlerTime, url, rate="", title="" ):
     		os.makedirs(path) 
     except Exception, e:
     	print 'os.makedirs(path) error' 
-    try:	
-    	filename = remove(title, '\/:*?"<>|.') + ".txt"          
-    	with open(CrawlerTime +"/"+ filename, 'w') as f: 
-                 f.write(soup.select('#main-container')[0].text.split('--')[0].encode('utf-8')) 
+    try:
+        filename = remove(title, '\/:*?"<>|.') + ".txt" 
+        title1 = remove(title, '\/:*?"<>|.').encode('utf-8')
+        content = soup.select('#main-container')[0].text.split('--')[0].encode('utf-8')
+        time = soup.select('.article-meta-value')[3].text.encode('utf-8')
+        url = 'https://www.ptt.cc/bbs/'+ board.encode('utf-8')
+              
+        with open(CrawlerTime +"/"+ filename, 'w') as f: 
+                 f.write(title1+','+time+','+url+','+content) 
     except IndexError:
-    	pass             
+        pass              
 
 
 def main():
@@ -43,7 +48,6 @@ def main():
     name1 = crawlName(url)
     CrawlerTime= name1+'-'+strftime("%Y-%m-%d[%H-%M-%S]")
 
-    CrawlerTime= "ArticleDownload_"+strftime("%Y-%m-%d[%H-%M-%S]")
 
     ts = time()
     article_urls = []
